@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        
+        html,
+        body {
+        height: 90%;
+        }
+
+        .mydiv {
+        width:99%;
+        height:100%;
+        color:black;
+        font-weight:bold;
+        animation: animation 10s infinite;
+        }
+
+        @keyframes animation {
+        0% {background-color: rgb(255, 147, 210);}
+        25%{background-color:rgb(248, 248, 122);}
+        50%{background-color:rgb(141, 255, 141);}
+        75%{background-color:rgb(188, 146, 255);}
+        100% {background-color: rgb(255, 119, 119);}
+        }
+       
+        #container{
+            background-color: rgb(255, 255, 255);
+           
+            border: 1px solid #BFBFBF;
+            background-color: white;
+            box-shadow: 7px 7px 4px #aaaaaa;
+                     
+            text-align: center;
+            max-width: fit-content;
+            /* margin-top: 100px; */
+            padding: 50px;
+            margin: auto;
+            border-radius: 6px;
+            /* margin-top: 50px; */
+           
+        }
+        input{
+            
+            padding: 8px;
+            text-align: center;
+            border-radius: 8px;
+        }
+        button{
+            font-size: 15px;
+            padding: 8px;
+            border-radius: 5px;
+            border-width: 2px;
+            background-color: cornsilk;
+            color: black;
+        }
+        button:hover{
+            color: rgb(15, 195, 39);
+            background-color: black;
+        }
+        input:hover{
+          width: 230px;
+        }
+    </style>
+</head>
+<body class="mydiv" >
+
+    <%- include('partials/flash') %>
+    
+    <div style="height:70px;"></div>
+ <div id = "container" class="content">
+    <h1>Login</h1>
+    
+    <form action="/login" method="POST" >
+       
+        <div>
+            <label class="form-label" for="username">User Name</label><br>
+            <input class="form-control" type="text" id="username" name="username" placeholder="User Name" required><br><br>
+        </div>
+
+        <div>
+            <label class="form-label" for="password">Password</label><br>
+            <input class="form-control" type="password" id="password" name="password" placeholder= "Password" required><br>
+        </div>
+        
+        <div>
+            <br>
+            <br>
+            <button>Login</button>
+        </div>
+    </form>
+    <h3>Don't  have a account <a href ="register">Register</a> here</h3>
+ </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <div style="height:100px;"></div>
+    <h1>Hi</h1>
+    <%= book1 %> 
+    <a href = "/book/<%= book1.name %> /page">Home</a>
+    <a href = "/new/<%= book1._id %>/page">new</a>
+    <br><br>
+    <!-- <a href = "/book1/page">1</a>
+    <a href = "/new/1/page">new</a> -->
+    <% for(let i =0;i<book1.pages.length;i++){ %> 
+        <h1><%= book1.pages[i].header %> 
+            <a href = "/display/<%= book1.pages[i]._id %>">Open</a> 
+            <a href = "/edit/<%= book1.pages[i]._id %>">Edit </a>
+            <a href = "/delete/<%= book1._id %>/<%= book1.pages[i]._id %>">Delete</a>
+        </h1>
+    <% } %> 
+   
+</body>
+</html>

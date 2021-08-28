@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Document</title>
+    <style>
+      body{
+        text-align: center;
+        background-color: rgb(242, 228, 255);
+      }
+      #header2{
+        width: 300px;
+        padding: 9px;
+        
+      }
+      a span{
+        border: 2px solid black;
+        /* background-color: chartreuse; */
+        background-color: violet;
+        border-radius: 50%;
+        padding: 4px;
+        cursor: -webkit-grab; 
+        cursor: grab;
+      }
+      .iconbar{
+        margin-top: 30px;
+        margin-bottom: 30px;
+      }
+      .iconbar a{
+        /* margin: 4px; */
+        margin-bottom: 40px;
+      }
+      iframe{
+        border: 2px solid black;
+        background-color: white;
+      }
+      .submit{
+        padding:7px;
+        border: 2px solid brown;
+        background-color: white;
+        border-radius: 3px;
+      }
+      .submit:hover{
+        background-color: brown;
+        color: white;
+      }
+    </style>
+</head>
+<body >
+  <%- include('partials/navbar') %> 
+  <div style="height:80px;"></div>
+    <div >
+        
+        <form action="/edit/<%= d._id %>" method="POST" id= "myform">
+            <!-- "<%= d._id %>" -->
+          <div class="input-field">
+            <label for="header2">Title</label>
+            <input type="text" id="header2" name="header" value = "<%= d.header %>"  required />
+            <label for = "color">background color</label>
+            <input type ="color" name = "color" value="#ffffff" required>
+          </div>
+                <textarea name="body" id="body" class="editor" style="display: none;" value = "<%= d.body %>" ><%= d.body %></textarea>
+            <!-- value = "<%= d.body %>" -->
+            <!--  class="materialize-textarea hide" -->
+            
+            <div class="iconbar">
+              <a class=" bold"><span class="material-icons">format_bold </span></a>
+              <a class="italic"><span class="material-icons"  > format_italic</span></a>
+              <a class="underline"><span class="material-icons">format_underlined  </span> </a>
+              <a class="link"><span class="material-icons">  link </span> </a>
+              <a class=" unlink" ><span class="material-icons">  link_off </span> </a> 
+              <a class="insimg"><span class="material-icons">  add_photo_alternate </span> </a>
+              <a class="fontname"><span class="material-icons">  text_format</span> </a>
+              <a class=" fontsize" ><span class="material-icons" > text_fields </span> </a>  
+              <a class=" justifyleft"><span class="material-icons">format_align_left</span> </a> 
+              <a class=" justifycenter"><span class="material-icons">  format_align_center</span> </a> 
+              <a class=" justifyright" ><span class="material-icons">  format_align_right</span> </a>   
+              <a class=" undo">  <span class="material-icons">undo</span> </a>
+              <a class=" redo"><span class="material-icons">  redo</span> </a>
+              <a class=" textcolor2"><span class="material-icons">  palette</span> </a>   
+              <input type="color" name="" id="colorbox" />
+            </div>
+            <label for = "body">
+                    <iframe   class="editor"  id="richTextField"   name="richTextField" width="500px" height="400px" ></iframe>
+                    
+            </label>
+            
+          </div>
+          
+         <button onclick = "submit_form()" class = "submit" >Done</button>
+        </form>
+    </div>
+      
+      <script>
+
+window.frames["richTextField"].document.body.innerHTML =  myform.elements["body"].value;
+console.log(window.frames["richTextField"].document.body.innerHTML)
+
+
+
+window.addEventListener("DOMContentLoaded", event => {
+    console.log("hi");
+           
+  richTextField.document.designMode = "On";
+  var frames = window.frames;
+  for (var i = 0; i < frames.length; i++) {
+    frames[i].document.designMode = "On";
+  }
+
+  document.querySelectorAll(".submit").forEach(btn => {
+   
+    btn.onclick = submit_form;
+  });
+  document.querySelectorAll(".bold").forEach(btn => {
+    btn.onclick = iBold;
+  });
+  document.querySelectorAll(".italic").forEach(btn => {
+    btn.onclick = iItalic;
+  });
+  document.querySelectorAll(".underline").forEach(btn => {
+    btn.onclick = iUnderline;
+  });
+  document.querySelectorAll(".link").forEach(btn => {
+    btn.onclick = iLink;
+  });
+  document.querySelectorAll(".unlink").forEach(btn => {
+    btn.onclick = iUnLink;
+  });
+  document.querySelectorAll(".insimg").forEach(btn => {
+    btn.onclick = iImage;
+  });
+  document.querySelectorAll(".fontname").forEach(btn => {
+    btn.onclick = iFontname;
+  });
+  document.querySelectorAll(".fontsize").forEach(btn => {
+    btn.onclick = iFontsize;
+  });
+  document.querySelectorAll(".justifyleft").forEach(btn => {
+    btn.onclick = iJustifyleft;
+  });
+  document.querySelectorAll(".justifycenter").forEach(btn => {
+    btn.onclick = iJustifycenter;
+  });
+  document.querySelectorAll(".justifyright").forEach(btn => {
+    btn.onclick = iJustifyright;
+  });
+  document.querySelectorAll(".undo").forEach(btn => {
+    btn.onclick = iUndo;
+  });
+  document.querySelectorAll(".redo").forEach(btn => {
+    btn.onclick = iRedo;
+  });
+  document.querySelectorAll(".textcolor2").forEach(btn => {
+    btn.onclick = iTextcolor2;
+  });
+
+  function iFrameOn() {
+    richTextField.document.designMode = "On";
+  }
+  function submit_form() {
+     ctr = 0;
+     console.log(window.frames["richTextField"].document.body.innerHTML)
+    
+    var theForm = document.getElementById("myform");
+    theForm.elements["body"].value =
+      window.frames["richTextField"].document.body.innerHTML;
+
+    theForm.submit();
+  }
+  function iBold() {
+    
+    console.log(window.frames["richTextField"].document.body.innerHTML)
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].document.execCommand("bold", false, null);
+    }
+  }
+  function iUnderline() {
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].document.execCommand("underline", false, null);
+    }
+  }
+  function iItalic() {
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].document.execCommand("italic", false, null);
+    }
+  }
+  function iLink() {
+    var linkURL = prompt("Enter the URL for this link:", "http://");
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].document.execCommand("CreateLink", false, linkURL);
+    }
+  }
+  function iUnLink() {
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].document.execCommand("unlink", false, null);
+    }
+  }
+  function iImage() {
+    var imgSrc = prompt("Enter image location", "");
+    if (imgSrc != null) {
+      for (var i = 0; i < frames.length; i++) {
+        frames[i].document.execCommand("insertimage", false, imgSrc);
+      }
+    }
+  }
+  function iFontname() {
+    var font = prompt("Enter a valid css font name", "");
+    if (font != null) {
+      for (var i = 0; i < frames.length; i++) {
+        frames[i].document.execCommand("fontName", true, font);
+      }
+    }
+  }
+
+  function iFontsize() {
+    var size = prompt("Enter a valid font size(1-7)", "");
+    if (size != null) {
+      for (var i = 0; i < frames.length; i++) {
+        frames[i].document.execCommand("fontSize", true, size);
+      }
+    }
+  }
+
+  function iJustifyleft() {
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].document.execCommand("justifyLeft", false, null);
+    }
+  }
+  function iJustifycenter() {
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].document.execCommand("justifyCenter", false, null);
+    }
+  }
+  function iJustifyright() {
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].document.execCommand("justifyRight", false, null);
+    }
+  }
+  function iUndo() {
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].document.execCommand("undo", false, null);
+    }
+  }
+  function iRedo() {
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].document.execCommand("redo", false, null);
+    }
+  }
+  function iTextcolor2() {
+    var color = document.getElementById("colorbox").value;
+    console.log(color);
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].document.execCommand("foreColor", false, color);
+    }
+  }
+});
+
+
+      </script>
+      
+</body>
+</html>
+  

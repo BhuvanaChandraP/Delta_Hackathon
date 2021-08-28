@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #contain{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <div style="height:100px;"></div>
+    <div id = "contain">
+        <h1>hdsahjhg</h1>
+        <input  type="color" onchange="bg()" id = "bg">
+    </div>
+    
+    <script>
+        function bg()
+        {
+            var c = document.getElementById("bg");
+            var w = document.getElementsByTagName("BODY")[0];
+            w.style.backgroundColor = c.value;
+        }
+           
+    </script>
+</body>
+</html>

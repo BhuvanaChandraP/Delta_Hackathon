@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&display=swap" rel="stylesheet">
+    <title>My Diary</title>
+    <style>
+        body{
+            text-align: center;
+            
+        }
+        #header{
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/navbar') %> 
+    <div style="height:100px;"></div>
+   
+    
+    <h1 id = "header">Title : <%= d.header %></h1>
+    <!-- <h3>Date and Time : <%= d.date %></h3> -->
+    <h3 style="color: rgb(255, 56, 21);">
+        <%= d.date.getDate() %>-<%=
+        d.date.getMonth()+1 %>-<%= d.date.getFullYear()
+        %>
+    </h3>
+    
+    <br><br>
+    <div class="d-body">
+        <%- d.body%>
+    </div>
+    <% let c = d.color %> 
+    <script>
+        let c1 = '<%- c %>';
+        console.log(c1);
+        var w = document.getElementsByTagName("BODY")[0];
+        w.style.backgroundColor = c1;
+    </script>
+    <script>
+        window.addEventListener("DOMContentLoaded", e => {});
+    </script>
+</body>
+</html>
