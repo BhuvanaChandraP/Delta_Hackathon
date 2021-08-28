@@ -77,12 +77,13 @@ router.get('/display/:pid' , checkAuth, async(req,res)=>{
     console.log(d);
     res.render('displayeach' , { d });
 })
-router.get('/edit/:pid' ,checkAuth,async(req,res)=>{
+router.get('/edit/:bid/:pid' ,checkAuth,async(req,res)=>{
     const d = await Page.findById(req.params.pid);
+    const d1 = await Book.findById(req.params.bid);
     console.log(d);
-    res.render('edit' , { d });
+    res.render('edit' , { d , d1});
 })
-router.post('/edit/:pid' ,checkAuth,async(req,res)=>{
+router.post('/edit/:bid/:pid' ,checkAuth,async(req,res)=>{
     console.log(req.body);
     let d1;
     let b1 = {body : req.body.body};
@@ -103,7 +104,9 @@ router.post('/edit/:pid' ,checkAuth,async(req,res)=>{
     // console.log(d1);
     const d = await Page.findById(req.params.did);
     console.log(d);
-    res.redirect('/home');
+    let c1 = await Book.findById(req.params.bid);
+    console.log(c1)
+    res.redirect(`/book/${c1.name}`);
 })
 router.get('/delete/:bid/:pid' ,checkAuth,async(req,res)=>{
     let d1;

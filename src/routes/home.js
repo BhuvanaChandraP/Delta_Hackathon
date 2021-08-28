@@ -25,19 +25,16 @@ router.post('/register' , async(req,res,next)=>{
     try{
         const { email, username, password  } = req.body;
         const user = new User({ email, username });
-    const registeredUser = await User.register(user, password);
-    console.log(registeredUser);
-    req.flash('success',"Successfully Registered");
-    res.redirect('login'); 
+        const registeredUser = await User.register(user, password);
+        console.log(registeredUser);
+        req.flash('success',"Successfully Registered");
+        res.redirect('login'); 
     }
     catch(err){
         console.log(err);
     if (err.message == "A user with the given username is already registered") {
             req.flash("error", "Name is already in use");
     }
-    // else if(err._message == "User validation failed"){
-    //     req.flash("Please enter a valid webmail Id");
-    // }
     else if (err.keyValue.email) {
       req.flash("error", "Email is already in use");
     } else if (err.keyValue.username) {
